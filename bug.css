@@ -1,0 +1,22 @@
+The following CSS code snippet demonstrates an issue where the expected behavior of the `:hover` pseudo-class is not observed for the child element when the parent element has a `pointer-events: none;` property applied to it.
+
+```css
+.parent {
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+  pointer-events: none; /* This prevents hover effects on the parent */
+}
+
+.child {
+  width: 100px;
+  height: 50px;
+  background-color: lightcoral;
+}
+
+.parent:hover .child {
+  background-color: lightgreen; /* This hover effect is not triggered */
+}
+```
+
+The intended behavior is that when the mouse hovers over the `.parent` element, the `.child` element's background color should change to light green. However, due to the `pointer-events: none;` on the parent, the hover state is not propagated to the child element.
