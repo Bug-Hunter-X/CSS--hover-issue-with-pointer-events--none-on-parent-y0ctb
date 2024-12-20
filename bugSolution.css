@@ -1,0 +1,41 @@
+There's no direct way to trigger the :hover effect on the child when the parent has `pointer-events: none`. The `pointer-events` property essentially blocks the event from propagating down the DOM tree.  Workarounds are necessary depending on the desired behavior:
+
+**Workaround 1 (Using JavaScript):**
+If you need the parent to be non-interactive but want the child to respond to hover events, you must handle this with JavaScript event listeners. Attach an event listener to the child directly to detect the hover effect.
+
+```javascript
+const childElement = document.querySelector('.child');
+childElement.addEventListener('mouseover', () => {
+  childElement.style.backgroundColor = 'lightgreen';
+});
+
+childElement.addEventListener('mouseout', () => {
+  childElement.style.backgroundColor = 'lightcoral';
+});
+```
+
+**Workaround 2 (Separate elements with absolute positioning):**
+Place the child element absolutely positioned within the parent while removing the `pointer-events: none` from the parent.
+
+```css
+.parent {
+  position: relative; /* Required for absolute positioning of child */
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+}
+
+.child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 50px;
+  background-color: lightcoral;
+}
+
+.parent:hover .child {
+  background-color: lightgreen;
+}
+```
+Choose the best workaround depending on the complexity of your application and desired outcome.
